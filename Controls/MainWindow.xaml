@@ -9,6 +9,8 @@
         x:Name="Wnd_Main">
     
     <StackPanel>
+        <!--Labels besitzen, wie die meisten Controls und alle Container eine Content-Eigenschaft, welche
+        mit weiteren Containern/Controls befüllt werden können (Auch hier darf nur ein Root-Element vohanden sein).-->
         <Label Content="Hallo"
                Foreground="Red"
                FontSize="25"
@@ -17,6 +19,8 @@
                BorderThickness="2"
                HorizontalContentAlignment="Right"/>
 
+        <!--TextBlöcke sind Labels, welche auf Strings spezialisiert sind. Sie besitzen statt der
+            Content- die Text-Property-->
         <TextBlock Text="Auch hallo"
                    FontFamily="Arial"
                    Margin="5"/>
@@ -25,6 +29,13 @@
                 Content="Klick Mich"
                 Click="Btn_KlickMich_Click"/>
 
+        <!--Die Qulle von Ressourcen, wie z.B. der Inhalt dieses Image-Objekts,
+        kann entweder ein absoluter oder ein vom Applikationsordner ausgehender, relativer Pfad sein.
+        Auch Bindungen sind möglich.-->
+        <Image Source="C:\Users\kh2\Desktop\Material\ppedv.bmp"
+               Stretch="Uniform"
+               Height="100"/>
+
         <TextBox Text="Dies ist der eingegebene String"
                  Height="100"
                  AcceptsReturn="True"
@@ -32,12 +43,16 @@
                  TextWrapping="WrapWithOverflow"
                  VerticalScrollBarVisibility="Visible">
             <TextBox.ContextMenu>
+                <!--Jedes Element kann sein eigenes ContextMenü haben. Menüs von übergeordneten
+                Containern gelten für alle Elemente innerhalb des Containers-->
                 <ContextMenu>
                     <MenuItem Header="Kopieren"/>
                 </ContextMenu>
             </TextBox.ContextMenu>
         </TextBox>
 
+        <!--ItemControls wie ComboBoxen oder ListViews können über die ItemsSource-Property mit Daten 
+        oder in XAML mit Items mit Content-Property bestückt werden-->
         <ComboBox IsEditable="True">
             <ComboBoxItem Content="Eintrag 1"/>
             <ComboBoxItem Content="Eintrag 2"/>
@@ -48,11 +63,11 @@
                   IsChecked="{x:Null}"
                   IsThreeState="True"/>
 
+        <!--RadioButtons können einer Group zugeordnet werden, wodurch nur einer der Buttons angewählt sein darf-->
         <RadioButton Content="Auswahl 1" GroupName="group1"/>
         <RadioButton Content="Auswahl 2" GroupName="group1"/>
-        
+        <!--Seperator sind Striche, welche zur visuellen Abgrenzung dienen.-->
         <Separator/>
-
         <RadioButton Content="Auswahl 3" GroupName="group2"/>
 
         <Slider x:Name="Sdr_Value" 
@@ -69,6 +84,8 @@
                      Height="20"
                      IsIndeterminate="True"/>
 
+        <!--Menüs, wie ein Fenster-Menü (Menu) oder ein Kontext-Menü (ContextMenu) werden mit MenuItems befüllt.
+        Diese können ihrerseits weitere MenuItems aufnehmen, wodurch sich dann Untermenüs bilden-->
         <Menu>
             <MenuItem Header="Datei">
                 <MenuItem Header="Speichern">
@@ -82,6 +99,8 @@
             </MenuItem>
         </Menu>
 
+        <!--Ribbons sind die 'neuen' Menüs von MS-Applikationen. Sie benötigen die Referenz auf ihre Bibliothek.
+        Ribbon-NS: System.Windows.Controls.Ribbon-->
         <Ribbon>
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu>

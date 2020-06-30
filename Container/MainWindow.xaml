@@ -5,86 +5,129 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Container"
         mc:Ignorable="d"
-        Title="MainWindow" Height="621.622" Width="424.384">
-    <StackPanel>
+        Title="MainWindow" Height="424.128" Width="424.384">
+    <!--In WPF können verschiedene Container mit unterschiedlichem Verhalten zum Layouting verwendet werden, um Controls anzuordnen-->
 
-        <Canvas Height="200">
+    <!--Der ScrollViewer zeigt automatisch eine ScrollBar an, wenn der Content des ScrollViewers im Fenster nicht mehr vollständig
+        sichtbar ist-->
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
 
-            <Rectangle Fill="Blue" Height="50" Width="50"
+            <!--Ein Canvas bietet seinem Content absolute Positions-Koordinaten an, an welchem die Objekte festgemacht werden-->
+            <Canvas Height="200">
+
+                <!--Über die AttachedProperties Canvas.Left und Canvas.Top (Props des Canvas, welche sich aber auf die Content-Elemente beziehen)
+                kann die Position der Elemente im Canvas definiert werden-->
+                <Rectangle Fill="Blue" Height="50" Width="50"
                        Canvas.Left="100"
                        Canvas.Top="100"/>
 
-            <Rectangle Fill="Green" Height="50" Width="50"
+                <Rectangle Fill="Green" Height="50" Width="50"
                        Canvas.Left="110"
                        Canvas.Top="110"
                        Panel.ZIndex="-1"/>
 
-            <Button Content="Hallo"
+                <Button Content="Hallo"
                     Canvas.Left="50"
                     Canvas.Top="100"/>
 
-        </Canvas>
+            </Canvas>
 
-        <StackPanel Orientation="Horizontal">
-            <Button Content="Moin" Margin="5"/>
-            <Button Content="Moin"/>
-            <Button Content="Moin"/>
-            <Button Content="Moin"/>
-            <Button Content="Moin"/>
-            <Button Content="Moin"/>
-            <Button Content="Moin"/>
-            <Button Content="Moin"/>
-        </StackPanel>
+            <!--StackPanels 'stapeln' die beinhaltenden Elemente je nach Orientierung, wobei sie in dieser Richtung den Elementen eine minimale
+                Ausdehnung gestatten, in der anderen Richtung aber eine Maximale-->
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Moin" Margin="5"/>
+                <Button Content="Moin"/>
+                <Button Content="Moin"/>
+                <Button Content="Moin"/>
+                <Button Content="Moin"/>
+                <Button Content="Moin"/>
+                <Button Content="Moin"/>
+                <Button Content="Moin"/>
+            </StackPanel>
 
-        <WrapPanel Orientation="Horizontal">
-            <Button Content="Moin" Margin="5"/>
-            <Button Content="Moin" Margin="5"/>
-            <Button Content="Moin" Margin="5"/>
-            <Button Content="Moin" Margin="5"/>
-            <Button Content="Moin" Margin="5"/>
-            <Button Content="Moin" Margin="5"/>
-        </WrapPanel>
+            <!--WrapPanels agieren ähnlich wie StackPanels, verschieben jedoch die Elemente, wenn diese in einem Fenster nicht mehr sichtbar sind-->
+            <WrapPanel Orientation="Horizontal">
+                <Button Content="Moin" Margin="5"/>
+                <Button Content="Moin" Margin="5"/>
+                <Button Content="Moin" Margin="5"/>
+                <Button Content="Moin" Margin="5"/>
+                <Button Content="Moin" Margin="5"/>
+                <Button Content="Moin" Margin="5"/>
+            </WrapPanel>
 
-        <DockPanel LastChildFill="False">
-            <Button Content="Left"
+            <!--In DockPanels können Elemente über die AttachedProperty DockPanel.Dock einer Seite zugewiesen werden.
+                Nicht zugewiesene Elemente teilen sich den verbleibenden Platz. Die Ausrichtung der Elemente orientiert
+                sich zudem an der Zuweisungsreihenfolge.
+                Die LastChildFill-Eigenschaft gibt an, ob die nicht zugeordneten Elemente den verbleibenden Platz komplett
+                ausfüllen sollen oder nicht.-->
+            <DockPanel LastChildFill="False">
+                <Button Content="Left"
                     DockPanel.Dock="Left"/>
-            <Button Content="Top"
+                <Button Content="Top"
                     DockPanel.Dock="Top"/>
-            <Button Content="Bottom"
+                <Button Content="Bottom"
                     DockPanel.Dock="Bottom"/>
-            <Button Content="Right"
+                <Button Content="Right"
                     DockPanel.Dock="Right"/>
-            <Button Content="MoinMoin"/>
-            <Button Content="MoinMoin"/>
-            <Button Content="MoinMoin"/>
-            <Button Content="Rest"/>
-        </DockPanel>
+                <Button Content="MoinMoin"/>
+                <Button Content="MoinMoin"/>
+                <Button Content="MoinMoin"/>
+                <Button Content="Rest"/>
+            </DockPanel>
 
-        <Grid Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+            <!--Border sind grafische Elemente mit einer Content-Eigenschaft-->
+            <Border BorderBrush="Black" BorderThickness="5">
+                
+                <!--In Grids müssen Spalten und Zeilen zunächst definiert werden, bevor den Elementen über Grid.Row
+                    und Grid.Column eine Zelle zugeordnet wird.-->
+                <Grid Margin="10">
+                    <!--In den GridDefinitions können Spalten und Zeilen Breite/Höhe zugewiesen werden.
+                        Auto    = Minimaler Platz des gröten Elements der jeweiligen Spalte/Zeile
+                        *       = verbleibender Platz-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
 
-            <Button Content="Hallo"
+                    <Button Content="Hallo"
                     Grid.Column="0"
                     Grid.Row="0"/>
-            <Button Content="Hallo"
+                    <Button Content="Hallo"
                     Grid.Column="1"
                     Grid.Row="1"/>
-            <Button Content="Hallo"
+                    <Button Content="Hallo"
                     Grid.Column="2"
                     Grid.Row="0"
                     Grid.ColumnSpan="2"/>
-            <Button Content="Hallo"
+                    <Button Content="Hallo"
                     Grid.Column="2"
                     Grid.Row="1"/>
-        </Grid>
-    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!--In UniformGrids kann man nur die Anzahl der Spalten und Zeilen angeben. Die Zuordnung der Elemente
+                zu den Zellen erfolgt durch die Reihenfolge der Elementdeklaration in Xaml. Eine Angabe von Spalten- und Zeilen-
+                größe ist nicht möglich.-->
+            <UniformGrid Columns="3" Rows="2">
+                <Button Content="Ahoj"/>
+                <Button Content="Ahoj"/>
+                <Button Content="Ahoj"/>
+                <Button Content="Ahoj"/>
+                <Button Content="Ahoj"/>
+            </UniformGrid>
+
+            <!--ViewBoxen bieten wie Images die Stretch-Property an, wodurch die Präsentation des Inhakts manipuliert werden kann-->
+            <Viewbox Stretch="Fill" Height="100">
+                <Button Content="Hallo"/>
+            </Viewbox>
+        </StackPanel>
+    </ScrollViewer>
+    
 </Window>
