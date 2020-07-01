@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PersonenDatenbank"
         mc:Ignorable="d"
-        Title="Neue Person" Height="318.96" Width="336"
+        Title="Neue Person" Height="318.96" Width="342.4"
         MinHeight="280" MinWidth="250"
         FontSize="16"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Topmost="True"
@@ -59,7 +59,7 @@
                  Margin="2"/>
         <DatePicker x:Name="Dpr_Birthdate"
                     Grid.Column="1" Grid.Row="2"/>
-        <CheckBox x:Name="Chb_Married"
+        <CheckBox x:Name="Cbx_Married"
                   Grid.Column="1" Grid.Row="3"
                   VerticalAlignment="Center"/>
 
