@@ -25,17 +25,22 @@ namespace Controls
             InitializeComponent();
         }
 
+        //EventHandler werden durch die ihnen zugeteilten Events im XAML-File aufgerufen
         private void Btn_KlickMich_Click(object sender, RoutedEventArgs e)
         {
+            //Änderung des Hintergrunds des Fensters
             Wnd_Main.Background = new SolidColorBrush(Colors.Yellow);
 
+            //Anzeigen einer MessageBox mit dem Wert des Sliders
             MessageBox.Show(Sdr_Value.Value.ToString());
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
+            //Schließen des aktuellen Fensters
             this.Close();
 
+            //Schließen der ganzen Applikation
             Application.Current.Shutdown();
         }
     }

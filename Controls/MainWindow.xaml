@@ -24,7 +24,7 @@
         <TextBlock Text="Auch hallo"
                    FontFamily="Arial"
                    Margin="5"/>
-
+        <!--Events, wie hier das Click-Event müssen auf EventHandler-Methoden im CodeBehind verweisen-->
         <Button x:Name ="Btn_KlickMich"
                 Content="Klick Mich"
                 Click="Btn_KlickMich_Click"/>

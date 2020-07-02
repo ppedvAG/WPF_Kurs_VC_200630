@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Ressourcen"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!--ResourceDictionaries sind reine Ressourcen-Sammlungen, welche Programmübergreifend verwendet werden können.
+    Sie müssen in einem Ressourcen-Tag der Applikation angemeldet werden (vgl. MainWindow.xaml)-->
+    <sys:String x:Key="stringAusDict">Klick Mich</sys:String>
+</ResourceDictionary>

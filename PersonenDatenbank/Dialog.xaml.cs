@@ -24,5 +24,27 @@ namespace PersonenDatenbank
         {
             InitializeComponent();
         }
+
+        private void Btn_Ok_Click(object sender, RoutedEventArgs e)
+        {
+            Person person = this.DataContext as Person;
+
+            string ausgabe = $"{person.Vorname} {person.Nachname} ({person.Geschlecht})\n{person.Geburtsdatum.ToShortDateString()}\n{person.Lieblingsfarbe}\n";
+            if (person.Verheiratet) ausgabe += "Ist Verheiratet\n";
+            ausgabe += "Abspeichern?";
+
+            if(MessageBox.Show(ausgabe, $"{person.Vorname} {person.Nachname}", MessageBoxButton.YesNo, MessageBoxImage.Question)==MessageBoxResult.Yes)
+            {
+                this.DialogResult = true;
+                this.Close();
+            }
+
+
+        }
+
+        private void Btn_Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

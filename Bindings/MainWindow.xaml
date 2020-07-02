@@ -6,6 +6,11 @@
         xmlns:local="clr-namespace:Bindings"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="504.054">
+    
+    <!--Durch Bindings können Properties von XAML-Objekten mit anderen XAML-Properties oder Daten verknüpft werden.
+    Bindings werden immer in der Ziel-Property definiert.-->
+    <!--Die Binding-Property ElementName definiert das Quellen-Element in dem aktuellen XAML.Dokument.
+    Path definiert die Quellen-Property des Quellen-Elements-->
     <StackPanel>
         <StackPanel Orientation="Horizontal">
             <Slider x:Name="Sdr_Eins"
@@ -13,6 +18,10 @@
                     Value="10"/>
             <TextBox Width="80">
                 <TextBox.Text>
+                    <!--Mittels der Mode-Property von Bindings kann der Bindungs-Weg definiert werden
+                        Mode=TwoWay stellt eine Bindung in beide Richtungen bereit-->
+                    <!--Mittels der UpdateSourceTrigger-Property kann definiert werden, wann die GUI aktualisiert wird.
+                        UST=PropertyChanged aktualisiert das Element, wenn die Quell-Property geändert wird-->
                     <Binding ElementName="Sdr_Eins" Path="Value" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged"/>
                 </TextBox.Text>
             </TextBox>
@@ -22,13 +31,18 @@
             <Slider x:Name="Sdr_Zwei"
                     Width="300"
                     Value="10"/>
-            <TextBox Width="80" Text="{Binding ElementName=Sdr_Zwei, Path=Value, Mode=OneWay, UpdateSourceTrigger=LostFocus}"/>
+            <!--Anstelle einer Auslagerung der zu bindenden Eigenschaft und der Erstellung eines Binding-Tags (s.o.), kann
+                auch eine verkürzte Schreibeweise names Markup-Extension (s.u.) verwendet werden-->
+            <!--Mode=OneWay stellt die Bindung für die Richtung Quelle->Ziel her-->
+            <!--UST=LostFocus aktualisiert das Element, wenn der Focus in dem Fenster auf ein anderes Element gelegt wird-->
+                    <TextBox Width="80" Text="{Binding ElementName=Sdr_Zwei, Path=Value, Mode=OneWay, UpdateSourceTrigger=LostFocus}"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">
             <Slider x:Name="Sdr_Drei"
                     Width="300"
                     Value="10"/>
+            <!--Mode=OneWayToSource stellt die Bindung für die Richtung Ziel->Quelle her-->
             <TextBox Width="80" Text="{Binding ElementName=Sdr_Drei, Path=Value, Mode=OneWayToSource, UpdateSourceTrigger=LostFocus}"/>
         </StackPanel>
 
@@ -36,6 +50,7 @@
             <Slider x:Name="Sdr_Vier"
                     Width="300"
                     Value="10"/>
+            <!--UST=Explicit erfordert die Aktualisierung über den CodeBehind und ein Event, bei welchem diese Aktualisierung durchgeführt wird (hier das Click-Event des Buttons)-->
             <TextBox x:Name="Tbx_Vier" Width="80" Text="{Binding ElementName=Sdr_Vier, Path=Value, Mode=OneWayToSource, UpdateSourceTrigger=Explicit}"/>
             <Button Content="Übernehmen" Click="Button_Click"/>
         </StackPanel>

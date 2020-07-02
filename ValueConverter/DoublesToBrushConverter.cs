@@ -9,6 +9,8 @@ using System.Windows.Media;
 
 namespace ValueConverter
 {
+    //MultiBindings benötigen das Interface IMultivalueConverter. Die Convert-Methode empfängt ein value-Array, in welchem die gebundenen Quellen in
+    //derselben Reihenfolge wie in der XAML-Deklaration übergeben werden.
     class DoublesToBrushConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)

@@ -6,7 +6,14 @@
         xmlns:local="clr-namespace:ValueConverter"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="413.454">
+    
+    <!--Wenn eine Bindung an eine Property durchgeführt werden soll, welche einen anderen Datentyp liefert,
+        als ihn die Ziel-Property erwartet (oder ein Wert vor der Übergabe manipuliert werden soll), muss in den 
+        Ressourcen ein Converter eingebunden werden, welcher die Typumwandlung übernimmt-->
     <StackPanel>
+
+        <!--ValueConverter-->
+
         <Slider Minimum="0" Maximum="255"
                 x:Name="Sdr_Rot"
                 Value="0"/>
@@ -16,6 +23,7 @@
                 <Rectangle.Fill>
                     <Binding ElementName="Sdr_Rot" Path="Value">
                         <Binding.Converter>
+                            <!--Der für die Umwandlung zuständige Converter (eine spezielle C#-Klasse) wird in der Converter-Property definiert-->
                             <local:DoubleToBrushConverter/>
                         </Binding.Converter>
                     </Binding>
@@ -24,6 +32,8 @@
         </Border>
 
         <Separator/>
+
+        <!--MultiValueConverter-->
 
         <Grid Margin="10">
             <Grid.ColumnDefinitions>
@@ -77,6 +87,8 @@
                     Width="100" Height="100">
                     <Rectangle Width="100" Height="100" x:Name="Rct_Output">
                         <Rectangle.Fill>
+                            <!--Wenn mehrere Quellen zu an dasselbe Ziel gebunden werden, muss ein MultiBinding etabliert werden.
+                                Der Converter erhält die Werte der Bindungen in der Reihenfolge, in welcher sie in XAML deklaiert wurden.-->
                             <MultiBinding>
                                 <MultiBinding.Converter>
                                     <local:DoublesToBrushConverter/>

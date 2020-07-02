@@ -14,6 +14,10 @@
                 Canvas.Left="20"
                 Canvas.Top="50">
             <Button.Triggers>
+                <!--Animationen sind Property-Veränderungen über Zeit, welche durch einen EventTrigger ausgelöst
+                        werden. Die Property-Veränderungen werden in einem Storyboard definiert.
+                        Die Berechnung der Animationen erfolg in einem Side-Thread, wodurch die GUI die ganze Zeit über 
+                        benutzbar bleibt.-->
                 <EventTrigger RoutedEvent="MouseEnter">
                     <BeginStoryboard>
                         <Storyboard>
