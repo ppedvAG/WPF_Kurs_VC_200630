@@ -8,19 +8,33 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
+//Im Model-Teil eines MVVM-Programms werden die Buisness-Klassen abgelegt. Diese Klassen dürfen keine Referenzen auf die anderen MVVM-Teile haben.
 namespace MVVM_Bsp.Model
-{      
-
+{
+    //Model-Klasse 'Person' mit dem IDataErrorInfo-Interface zur Validierung der Benutzereingaben bezüglich der Klassenproperties
     public class Person : IDataErrorInfo
     {
+        #region Statische Member
+        //Statische Listenproperty zum Ablegen der geladenen Personen (ObservableCollection, damit die GUI über Veränderungen innerhalb der Liste
+        //informiert wird)
         public static ObservableCollection<Person> Personenliste { get; set; } = new ObservableCollection<Person>();
 
+        //Methode, welche Bsp-Daten generiert und damit den Zugriff auf eine Datenbank simuliert
         public static void LadePersonenAusDb()
         {
             Personenliste.Add(new Person() { Vorname = "Otto", Nachname = "Meier", Geburtsdatum = new DateTime(2002, 5, 12), Verheiratet = true, Geschlecht = Gender.Männlich, Lieblingsfarbe = Colors.Blue });
             Personenliste.Add(new Person() { Vorname = "Anna", Nachname = "Müller", Geburtsdatum = new DateTime(1989, 4, 4), Verheiratet = false, Geschlecht = Gender.Weiblich, Lieblingsfarbe = Colors.Green });
             Personenliste.Add(new Person() { Vorname = "Marie", Nachname = "Schmidt", Geburtsdatum = new DateTime(1977, 12, 17), Verheiratet = true, Geschlecht = Gender.Divers, Lieblingsfarbe = Colors.Yellow });
         }
+
+        //Property in welcher die zu bearbeitende Person abgelegt wird
+        public static Person AktuellePerson { get; set; }
+
+        #endregion
+
+        #region Properties
+
+        //Felder und Properties der 'Person'-Klasse
 
         private string vorname;
         public string Vorname
@@ -58,19 +72,19 @@ namespace MVVM_Bsp.Model
         }
 
         private Gender geschlecht;
-        private Person person;
-
         public Gender Geschlecht
         {
             get { return geschlecht; }
             set { geschlecht = value; }
         }
 
+        //Durch das Interface geforderte Properties
         public string Error
         {
             get { return ""; }
         }
 
+        //Property, welche die Validierungsfehler und deren Fehlermeldungen beinhaltet
         public string this[string columnName]
         {
             get
@@ -97,13 +111,20 @@ namespace MVVM_Bsp.Model
             }
         }
 
+        #endregion
+
+        //Parameterloser Standartkonstruktor, welcher die leeren 'Person'-Objekte auf einen Startzustand setzt
         public Person()
         {
+            //Die 'Gerburtsdatum'-Property wird auf das aktuelle Datum gesetzt, damit der Benutzer innerhalb der Auswahlmaske nicht so viel suchen muss
             Geburtsdatum = DateTime.Now;
+
+            //Die String-Eigenschaften werden auf "" initialisiert, um GUI-Fehler zu vermeiden
             this.Vorname = "";
             this.Nachname = "";
         }
 
+        //Kopierkonstruktor, welcher eine 1-zu-1-Kopie eines übergebenen 'Person'-Objekts erzeugt
         public Person(Person person)
         {
             this.Vorname = person.Vorname;

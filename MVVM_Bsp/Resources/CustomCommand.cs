@@ -7,11 +7,9 @@ using System.Windows.Input;
 
 namespace MVVM_Bsp.Resources
 {
-    //Commandklassen müssen das Interface ICommand implementieren
+    //Klasse, welche die Commands (bzw. deren zu befüllende Hülle) zu Verfügung stellt (vgl. Modul 13)
     public class CustomCommand : ICommand
     {
-        //Diese Command-Klasse ist nicht spezialisiert. Sie kann über den Konstruktor mit beliebigen Methoden befüllt werden
-
         //Delegatedefinition
         public delegate bool CanExecuteDelegate(object parameter);
         public delegate void ExecuteDelegate(object parameter);

@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:MVVM_Bsp.View"
         xmlns:res="clr-namespace:MVVM_Bsp.Resources"
         xmlns:vm="clr-namespace:MVVM_Bsp.ViewModel"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="Personendatenbank" Height="416.41" Width="626.52"
         Style="{StaticResource Sty_Wnd_Main}">
@@ -22,7 +23,7 @@
 
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Datei">
-                <MenuItem x:Name="Mim_Beenden" Header="Beenden"/>
+                <MenuItem x:Name="Mim_Beenden" Header="Beenden" Command="{Binding SchliessenCmd}"/>
             </MenuItem>
         </Menu>
 
@@ -30,19 +31,43 @@
                    HorizontalAlignment="Right"
                    Margin="10,0,10,5">
             <Button x:Name="Btn_Neu" 
-                    Content="Neue Person"/>
+                    Content="Neue Person"
+                    Command="{Binding NeuCmd}"/>
+            <!--Der Aendern- und der Loeschen-Command übergeben als Parameter das in dem DataGrid ausgewählte Objekt-->
             <Button x:Name="Btn_Aendern" 
-                    Content="Ändere Person"/>
+                    Content="Ändere Person"
+                    Command="{Binding AendernCmd}"
+                    CommandParameter="{Binding ElementName=Dgd_Personen, Path=SelectedItem}"/>
             <Button x:Name="Btn_Loeschen" 
-                    Content="Lösche Person"/>
+                    Content="Lösche Person"
+                    Command="{Binding LoeschenCmd}"
+                    CommandParameter="{Binding ElementName=Dgd_Personen, Path=SelectedItem}"/>
         </WrapPanel>
 
+        <!--DataGrids werden zur Visualisierung komplexer Datenlisten verwendet. Die ItemSource-Property ist
+        über eine Kurzbindung an den DataContext gebunden. Die einzelnen Eigenschaften der Objekte (vgl. die
+        Column-Einträge) sind per Kurzbindungen an die ItemSource gebunden.
+        Mit AutoGenerateColumns="False" verhindert man eine automatische Generierung der Spalten.
+        IsManipulationEnabled="False" und IsReadOnly="True" führen dazu, dass der Benutzer die Einträge nicht 
+        direkt bearbeiten kann.
+        Setzt man sowohl Background, als auch AlternatingRowBackground, wechseln sich die Zeilen ihre Farbe
+        betreffend ab.-->
         <DataGrid x:Name="Dgd_Personen"
                   Margin="10"
                   ItemsSource="{Binding Personenliste}"
                   AutoGenerateColumns="False"
                   IsManipulationEnabled="False" IsReadOnly="True"
                   AlternatingRowBackground="LightYellow">
+
+            <!--Mithilfen von Interaktion-Trigger können beliebige RoutedEvents auf Commands umgeleitet werden-->
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding AendernCmd}"
+                                           CommandParameter="{Binding ElementName=Dgd_Personen, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            
+            <!--In der Columns-Property definiert man die benötigten Spalten und bindet diese an die ItemSource-->
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}" Width="*"/>
                 <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}" Width="*"/>
@@ -50,6 +75,7 @@
                 <DataGridTextColumn Header="Geburtsdatum" Binding="{Binding Geburtsdatum, StringFormat=dd.MM.yyyy}" Width="Auto"/>
                 <DataGridCheckBoxColumn Header="Verheiratet" Binding="{Binding Verheiratet}" Width="Auto"/>
                 <DataGridTextColumn Header="Lieblingsfarbe" Binding="{Binding Lieblingsfarbe}" Width="Auto">
+                    <!--Mithilfe der CellStyle-Property können die Styles von Zellen angepasst werden-->
                     <DataGridTextColumn.CellStyle>
                         <Style TargetType="DataGridCell">
                             <Setter Property="Background" Value="{Binding Lieblingsfarbe, Converter={StaticResource string2brush}}"/>
