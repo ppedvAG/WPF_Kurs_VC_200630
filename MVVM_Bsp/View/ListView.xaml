@@ -1,0 +1,64 @@
+﻿<Window x:Class="MVVM_Bsp.View.ListView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MVVM_Bsp.View"
+        xmlns:res="clr-namespace:MVVM_Bsp.Resources"
+        xmlns:vm="clr-namespace:MVVM_Bsp.ViewModel"
+        mc:Ignorable="d"
+        Title="Personendatenbank" Height="416.41" Width="626.52"
+        Style="{StaticResource Sty_Wnd_Main}">
+
+    <Window.Resources>
+        <res:StringToBrushConverter x:Key="string2brush"/>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <vm:ListViewModel/>
+    </Window.DataContext>
+
+    <DockPanel Margin="5">
+
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Datei">
+                <MenuItem x:Name="Mim_Beenden" Header="Beenden"/>
+            </MenuItem>
+        </Menu>
+
+        <WrapPanel DockPanel.Dock="Bottom"
+                   HorizontalAlignment="Right"
+                   Margin="10,0,10,5">
+            <Button x:Name="Btn_Neu" 
+                    Content="Neue Person"/>
+            <Button x:Name="Btn_Aendern" 
+                    Content="Ändere Person"/>
+            <Button x:Name="Btn_Loeschen" 
+                    Content="Lösche Person"/>
+        </WrapPanel>
+
+        <DataGrid x:Name="Dgd_Personen"
+                  Margin="10"
+                  ItemsSource="{Binding Personenliste}"
+                  AutoGenerateColumns="False"
+                  IsManipulationEnabled="False" IsReadOnly="True"
+                  AlternatingRowBackground="LightYellow">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}" Width="*"/>
+                <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}" Width="*"/>
+                <DataGridTextColumn Header="Geschlecht" Binding="{Binding Geschlecht}" Width="Auto"/>
+                <DataGridTextColumn Header="Geburtsdatum" Binding="{Binding Geburtsdatum, StringFormat=dd.MM.yyyy}" Width="Auto"/>
+                <DataGridCheckBoxColumn Header="Verheiratet" Binding="{Binding Verheiratet}" Width="Auto"/>
+                <DataGridTextColumn Header="Lieblingsfarbe" Binding="{Binding Lieblingsfarbe}" Width="Auto">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background" Value="{Binding Lieblingsfarbe, Converter={StaticResource string2brush}}"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </DockPanel>
+
+</Window>
